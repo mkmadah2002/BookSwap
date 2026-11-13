@@ -1,7 +1,12 @@
+fetch("http://127.0.0.1:8000/api/v1/exchange-requests")
+        .then((res)=> res.json())
+        .then((data)=> main(data.data)  )
+        .finally(()=> loader())
+
 function BookExCard (data) {
     data.forEach(exgan => {
                     document.getElementById("cardsContaners").innerHTML +=`
-            <div class="bg-white h-[500px] rounded p-4">
+            <div class="bg-white h-max rounded p-4">
                 <div class="bg-white h-full w-full">
                     <div>
                         <div class="flex justify-between p-4">
@@ -56,7 +61,15 @@ function BookExCard (data) {
                                     </div>
                                     </div>`
                                     :
-                                    ""
+                                    `<div class=" border w-[200px] flex flex-col justify-center content-center ">
+                                        <div class="w-full text-center">
+                                        no book has been accepted yet
+                                        </div>
+                                        <div>
+                                        
+                                        </div>
+                                    </div>`
+                                    
 
                                 }
 
@@ -68,12 +81,16 @@ function BookExCard (data) {
                                     <img src="http://127.0.0.1:8000${exgan.owner.avatar}" alt="" class="w-full h-full  object-cover rounded-full">
                                 </div>
                                 <div class="mx-3">
-                                    <p>${exgan.owner.avatar}</p>
+                                    <p>${exgan.owner.name}</p>
                                    <p>${exgan.owner.email}</p>
                                 </div>
                             </div>
                             <button class="bg-sky-900 text-white py-4 px-8 my-3 rounded"><i
                                     class="bi bi-arrow-repeat mx-1 "></i>deatals </button>
+                                    <div class="animate-spin" >
+                                     
+                                    </div>
+                                    
                         </div>
                     </div>
                 </div>
@@ -86,10 +103,29 @@ function BookExCard (data) {
     
 }
 
+function main(data){
+    BookExCard(data)
+    rechercher(data)
+}
+
+
+function loader(){
+    const loader = document.getElementById('loader')
+    if (loader.classList.contains('hidden')) {
+        loader.classList.remove('hidden')
+    }else{
+        loader.classList.add('hidden')
+    }
+
+}
+
+function rechercher(data){
+    const recherche = document.getElementById("recherche").value
+    
 
 
 
+}
 
-fetch("http://127.0.0.1:8000/api/v1/exchange-requests")
-        .then((res)=> res.json())
-        .then((data)=> {BookExCard(data.data); console.log(data.data)}  )
+
+        
